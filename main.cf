@@ -1,0 +1,24 @@
+compatibility_level = 3.6
+
+myhostname = smtp.rss.local
+mydomain = rss.local
+myorigin = rss.local
+
+inet_interfaces = all
+inet_protocols = ipv4
+
+mydestination =
+local_recipient_maps =
+alias_maps =
+alias_database =
+
+mynetworks = 127.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16
+
+smtpd_relay_restrictions = permit_mynetworks, reject_unauth_destination
+smtpd_recipient_restrictions = permit_mynetworks, reject_unauth_destination
+
+relayhost =
+smtp_tls_security_level = may
+smtp_dns_support_level = enabled
+
+maillog_file = /dev/stdout

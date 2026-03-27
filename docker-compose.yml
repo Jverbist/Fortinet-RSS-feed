@@ -1,0 +1,27 @@
+services:
+  smtp:
+    build: ./smtp
+    container_name: local-postfix
+    restart: unless-stopped
+    ports:
+      - "2525:25"
+    networks:
+      - rssnet
+
+  rss-app:
+    build: ./app
+    container_name: rss-python-app
+    restart: unless-stopped
+    depends_on:
+      - smtp
+    environment:
+      SMTP_HOST: smtp
+      SMTP_PORT: 25
+      MAIL_FROM: rss-updates@rss.local
+      MAIL_TO: tech@exclusive-networks.be
+    networks:
+      - rssnet
+
+networks:
+  rssnet:
+    driver: bridge

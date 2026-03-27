@@ -3,3 +3,4 @@ uvicorn[standard]
 feedparser
 Jinja2
 python-dotenv
+feedparser
