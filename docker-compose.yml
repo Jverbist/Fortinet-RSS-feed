@@ -9,16 +9,22 @@ services:
       - rssnet
 
   rss-app:
-    build: ./app
+    image: python:3.12-slim
     container_name: rss-python-app
     restart: unless-stopped
     depends_on:
       - smtp
+    working_dir: /app
+    volumes:
+      - ./:/app
     environment:
       SMTP_HOST: smtp
       SMTP_PORT: 25
       MAIL_FROM: rss-updates@rss.local
       MAIL_TO: tech@exclusive-networks.be
+    command: >
+      sh -c "pip install --no-cache-dir -r requirements.txt &&
+             python3 main.py"
     networks:
       - rssnet
 
